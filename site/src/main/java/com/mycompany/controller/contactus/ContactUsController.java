@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.kzhang.tutorial.domain.ContactUs;
+import com.mycompany.kzhang.tutorial.service.ContactUsService;
+
 @Controller("blContactUsController")
 public class ContactUsController {
 
@@ -21,11 +24,20 @@ public class ContactUsController {
 
 	@Resource(name = "blEmailService")
 	protected EmailService emailService;
+	
+	@Resource(name = "contactUsService")
+    protected ContactUsService contactUsService;
 
 	@RequestMapping(value = "/contactus/success", method = RequestMethod.POST)
 	public String sendConfirmationEmail(@RequestParam("name") String name,
 			@RequestParam("emailAddress") String emailAddress,
 			@RequestParam("comments") String comments) {
+	    
+	    ContactUs contactUs = contactUsService.createContactUs();
+	    contactUs.setName(name);
+	    contactUs.setEmailAddress(emailAddress);
+	    contactUs.setComments(comments);
+	    
 		HashMap<String, Object> vars = new HashMap<String, Object>();
 		vars.put("name", name);
 		vars.put("comments", comments);

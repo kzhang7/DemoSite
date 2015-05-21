@@ -6,6 +6,10 @@
              
     <persistence-unit name="blPU" transaction-type="RESOURCE_LOCAL">
         <non-jta-data-source>jdbc/web</non-jta-data-source>
+        
+        <!-- Added this line -->
+        <class>com.mycompany.kzhang.tutorial.domain.ContactUsImpl</class>
+        
         <exclude-unlisted-classes/>
     </persistence-unit>
     
